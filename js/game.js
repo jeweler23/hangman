@@ -8,6 +8,9 @@ export function startGame(e) {
   const image = createImg();
   gameDiv.prepend(image);
 
+  const secretWord = generateWord();
+  console.log(secretWord);
+
   const keyboardDiv = createKeyboard();
   keyboardDiv.addEventListener("click", (event) => {
     if (event.target.tagName.toLowerCase() === "button") {
@@ -46,3 +49,9 @@ const createKeyboard = () => {
   keyboard.innerHTML = keyboardHTML;
   return keyboard;
 };
+
+function generateWord() {
+  const randomNumber = Math.floor(Math.random() * WORDS.length);
+  const randomWord = WORDS[randomNumber];
+  return randomWord;
+}
