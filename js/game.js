@@ -2,13 +2,14 @@ import { WORDS, KEYBOARD_LETTERS } from "./consts.js";
 
 const gameDiv = document.getElementById("game");
 const logoH1 = document.getElementById("logo");
+const word = generateWord()
 
 export function startGame(e) {
   logoH1.classList.add("logo-sm");
   const image = createImg();
   gameDiv.prepend(image);
 
-  const secretWord = generateWord();
+  const secretWord = word;
   console.log(secretWord);
 
   const keyboardDiv = createKeyboard();
@@ -50,8 +51,23 @@ const createKeyboard = () => {
   return keyboard;
 };
 
+// generate random word
 function generateWord() {
   const randomNumber = Math.floor(Math.random() * WORDS.length);
   const randomWord = WORDS[randomNumber];
   return randomWord;
 }
+
+// generate placeholders
+
+function generatePlaceHolders(){
+  const wordRand = word;
+  const divPlaceHolder = document.createElement('div')
+  const wordLength = [...wordRand.toString()];
+  const placeholdersHTML = wordLength.reduce((acc,item,i)=>{
+    return acc + `<h1 id="letter_${i}" class="letter">_</h1>`
+  },'')
+  divPlaceHolder.innerHTML = placeholdersHTML
+  return divPlaceHolder
+}
+generatePlaceHolders()
