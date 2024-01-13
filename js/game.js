@@ -1,19 +1,31 @@
-import { WORDS, KEYBOARD_LETTERS } from "./consts.js";
+import { WORDS, KEYBOARD_LETTERS, QUESTIONS } from "./consts.js";
 
 const gameDiv = document.getElementById("game");
 const logoH1 = document.getElementById("logo");
 const btnStart = document.querySelector(".app__btn-start");
-const word = generateWord();
+let word = generateWord();
 
 let winCount, triesLeft;
+let flag;
 
 export function startGame(e) {
+  flag = false;
   btnStart.style.display = "none";
   triesLeft = 10;
   winCount = 0;
+
+  // console.log(winCount,word,word.length);
+
   logoH1.classList.add("logo-sm");
+
   const image = createImg();
   gameDiv.prepend(image);
+
+  const questText = generateQuest();
+  const questPar = document.createElement("p");
+  questPar.classList.add("quest-par");
+  questPar.innerText = questText;
+  gameDiv.prepend(questPar);
 
   const secretWord = word;
   console.log(secretWord);
@@ -26,11 +38,26 @@ export function startGame(e) {
       checkLetter(event.target.id);
     }
   });
+
+  document.addEventListener("keyup",pressKey);
+
   gameDiv.innerHTML +=
     '<p id="tries" class="">TRIES LEFT: <span id="tries-left" class="">10</span></p>';
   gameDiv.appendChild(keyboardDiv);
 
   keyboardDiv.insertAdjacentElement("beforebegin", generatePlaceHolders());
+}
+
+// keyboard
+
+function pressKey(e){
+  KEYBOARD_LETTERS.forEach((item) => {
+    if (item == e.key.toUpperCase()) {
+      console.log(item);
+      checkLetter(item);
+      // }
+    }
+  })
 }
 
 // generation first image
@@ -68,6 +95,15 @@ function generateWord() {
   return randomWord;
 }
 
+
+
+// generate quest
+function generateQuest() {
+  const randomWord = word;
+  const index = WORDS.indexOf(randomWord);
+  return QUESTIONS[index];
+}
+
 // generate placeholders
 
 function generatePlaceHolders() {
@@ -87,10 +123,12 @@ function generatePlaceHolders() {
 // check letter
 
 const checkLetter = (letter) => {
+  console.log('winCount',winCount,'triesLeft',triesLeft, 'length',word.length);
   const wordRandom = word;
   if (wordRandom.includes(letter.toLowerCase())) {
     const wordArray = Array.from(wordRandom);
     wordArray.forEach((currentLetter, i) => {
+      // console.log(wordArray,i);
       if (currentLetter == letter.toLowerCase()) {
         winCount += 1;
         if (winCount === word.length) {
@@ -113,27 +151,44 @@ const checkLetter = (letter) => {
 };
 
 function stopGame(status) {
+  flag = true;
+  if (flag) {
+    document.removeEventListener("keyup",pressKey);
+  }
   document.getElementById("placeholder").remove();
   document.getElementById("tries").remove();
   document.getElementById("keyboard").remove();
-
+  flag = true;
+  // winCount = 0
+  // triesLeft = 0
   if (status == "win") {
     // сценарий выигрыша
     document.getElementById("hangman-img").src = "public/image/hg-win.png";
     document.getElementById("game").innerHTML +=
       '<h2 class="result-header win">You won!</h2>';
-  }
-
-  else if (status == "lose") {
+  } else if (status == "lose") {
     // сценарий проигрыша
-    document.getElementById('game').innerHTML +=
+    document.getElementById("game").innerHTML +=
       '<h2 class="result-header lose">You lost :(</h2>';
-      const hangmanImg = document.getElementById("hangman-img");
-      hangmanImg.src = `public/image/hg-${10}.png`;
+    const hangmanImg = document.getElementById("hangman-img");
+    hangmanImg.src = `public/image/hg-${10}.png`;
   }
 
   document.getElementById(
-    'game',
+    "game"
   ).innerHTML += `<p>The word was: <span class="result-word">${word.toUpperCase()}</span></p>`;
+  document.getElementById(
+    "game"
+  ).innerHTML += `<button class='app__btn-start' id='play-again'>Play again</button>`;
+  document.getElementById("play-again").addEventListener("click", playAgain);
+}
 
+function playAgain() {
+  gameDiv.innerHTML = "";
+  gameDiv.append(btnStart);
+  btnStart.style.display = "block";
+  logoH1.classList.remove("logo-sm");
+  word = generateWord();
+  // Вешаем на кнопку функцию, которая запускает игру – startGame
+  btnStart.addEventListener("click", startGame);
 }
