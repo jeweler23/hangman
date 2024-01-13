@@ -217,10 +217,11 @@ function stopGame(status) {
 
 function playAgain() {
   gameDiv.innerHTML = "";
-  gameDiv.append(btnStart);
-  btnStart.style.display = "block";
+  // gameDiv.append(btnStart);
+  // btnStart.style.display = "block";
   logoH1.classList.remove("logo-sm");
   word = generateWord();
+  startGame()
   // Вешаем на кнопку функцию, которая запускает игру – startGame
-  btnStart.addEventListener("click", startGame);
+  // btnStart.addEventListener("click", startGame);
 }
