@@ -45,8 +45,6 @@ export function startGame(e) {
 
   document.addEventListener("keyup", pressKey);
 
-  // console.log(pressKey());
-
   gameDiv.innerHTML +=
     '<p id="tries" class="">TRIES LEFT: <span id="tries-left" class="">10</span></p>';
   gameDiv.appendChild(keyboardDiv);

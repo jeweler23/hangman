@@ -1,0 +1,24 @@
+@media (max-width: 768px) {
+  .hangman-img {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 425px) {
+  .hangman-img {
+    width: 200px;
+    height: 200px;
+  }
+  .logo-sm {
+    font-size: 1.5em;
+  }
+  .letter{
+    width: 20px;
+  }
+
+  .quest-par{
+    font-size: 14px;
+    position: relative;
+  }
+}

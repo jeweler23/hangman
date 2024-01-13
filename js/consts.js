@@ -12,16 +12,16 @@ export const WORDS = [
 ];
 
 export const QUESTIONS = [
-  "Developer tool",
-  "The developer creates the part of the web page that is visible to the user",
-  "favorite hobby developer",
-  "Values ​​of display CSS property",
-  "Programming language",
-  "Vehicle",
-  "Name this game",
-  "Actor name Cumberbatch",
-  "Specialist responsible for writing server code",
-  "JavaScript framework for building user interfaces",
+  "Hint : Developer tool",
+  "Hint : The developer creates the part of the web page that is visible to the user",
+  "Hint : favorite hobby developer",
+  "Hint : Values ​​of display CSS property",
+  "Hint : Programming language",
+  "Hint : Vehicle",
+  "Hint : Name this game",
+  "Hint : Actor name Cumberbatch",
+  "Hint : Specialist responsible for writing server code",
+  "Hint : JavaScript framework for building user interfaces",
 ];
 
 export const KEYBOARD_LETTERS = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
