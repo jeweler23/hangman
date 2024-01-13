@@ -22,3 +22,11 @@
     position: relative;
   }
 }
+
+@media (max-width: 325px) {
+
+    .letter{
+      width: 15px;
+    }
+
+  }

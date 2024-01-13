@@ -1,8 +1,29 @@
 import { WORDS, KEYBOARD_LETTERS, QUESTIONS } from "./consts.js";
 
-const gameDiv = document.getElementById("game");
-const logoH1 = document.getElementById("logo");
-const btnStart = document.querySelector(".app__btn-start");
+const body = document.body;
+const gameSection = document.createElement("section");
+const logoH1 = document.createElement("h1");
+const gameDiv = document.createElement("div");
+const btnStart = document.createElement("button");
+
+body.appendChild(gameSection);
+gameSection.appendChild(logoH1);
+gameSection.appendChild(gameDiv);
+gameDiv.appendChild(btnStart)
+
+gameSection.id = "app";
+gameDiv.id = "game";
+logoH1.id = "logo";
+btnStart.id = "startGame";
+
+gameSection.classList.add("app");
+gameDiv.classList.add("app__block-btn");
+logoH1.classList.add("app__logo");
+btnStart.classList.add("app__btn-start");
+
+logoH1.innerText = '[ HANGMAN GAME ]';
+btnStart.innerHTML = 'Start game'
+
 let word = generateWord();
 let keyboardDiv = createKeyboard();
 
@@ -10,12 +31,11 @@ let winCount, triesLeft;
 let flag;
 
 export function startGame(e) {
-
-  keyboardDiv=createKeyboard()
+  keyboardDiv = createKeyboard();
 
   flag = false;
   btnStart.style.display = "none";
-  triesLeft = 10;
+  triesLeft = 6;
   winCount = 0;
 
   // console.log(winCount,word,word.length);
@@ -46,7 +66,7 @@ export function startGame(e) {
   document.addEventListener("keyup", pressKey);
 
   gameDiv.innerHTML +=
-    '<p id="tries" class="">TRIES LEFT: <span id="tries-left" class="">10</span></p>';
+    '<p id="tries" class="">TRIES LEFT: <span id="tries-left" class="">6</span></p>';
   gameDiv.appendChild(keyboardDiv);
 
   keyboardDiv.insertAdjacentElement("beforebegin", generatePlaceHolders());
@@ -62,7 +82,7 @@ function pressKey(e) {
       if (!elem.disabled) {
         checkLetter(elem.id);
       }
-      elem.disabled = true
+      elem.disabled = true;
     }
   }
 }
@@ -70,7 +90,7 @@ function pressKey(e) {
 // generation first image
 function createImg() {
   const img = document.createElement("img");
-  img.src = "public/image/hg-1.png";
+  img.src = "public/image/hg-4.png";
   img.alt = "hangman game";
   img.classList.add("hangman-img");
   img.id = "hangman-img";
@@ -155,7 +175,7 @@ const checkLetter = (letter) => {
     document.getElementById("tries-left").innerText = triesLeft;
 
     const hangmanImg = document.getElementById("hangman-img");
-    hangmanImg.src = `public/image/hg-${11 - triesLeft}.png`;
+    hangmanImg.src = `public/image/hg-${10 - triesLeft}.png`;
     if (triesLeft == 0) {
       stopGame("lose");
     }
