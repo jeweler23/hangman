@@ -4,11 +4,15 @@ const gameDiv = document.getElementById("game");
 const logoH1 = document.getElementById("logo");
 const btnStart = document.querySelector(".app__btn-start");
 let word = generateWord();
+let keyboardDiv = createKeyboard();
 
 let winCount, triesLeft;
 let flag;
 
 export function startGame(e) {
+
+  keyboardDiv=createKeyboard()
+
   flag = false;
   btnStart.style.display = "none";
   triesLeft = 10;
@@ -30,7 +34,7 @@ export function startGame(e) {
   const secretWord = word;
   console.log(secretWord);
 
-  const keyboardDiv = createKeyboard();
+  // const keyboardDiv = createKeyboard();
   keyboardDiv.addEventListener("click", (event) => {
     if (event.target.tagName.toLowerCase() === "button") {
       event.target.disabled = true;
@@ -39,7 +43,9 @@ export function startGame(e) {
     }
   });
 
-  document.addEventListener("keyup",pressKey);
+  document.addEventListener("keyup", pressKey);
+
+  // console.log(pressKey());
 
   gameDiv.innerHTML +=
     '<p id="tries" class="">TRIES LEFT: <span id="tries-left" class="">10</span></p>';
@@ -50,14 +56,17 @@ export function startGame(e) {
 
 // keyboard
 
-function pressKey(e){
-  KEYBOARD_LETTERS.forEach((item) => {
-    if (item == e.key.toUpperCase()) {
-      console.log(item);
-      checkLetter(item);
-      // }
+function pressKey(e) {
+  let key = e.key;
+
+  for (const elem of keyboardDiv.children) {
+    if (elem.id == e.key.toUpperCase()) {
+      if (!elem.disabled) {
+        checkLetter(elem.id);
+      }
+      elem.disabled = true
     }
-  })
+  }
 }
 
 // generation first image
@@ -72,7 +81,7 @@ function createImg() {
 }
 
 // generate keyboard
-const createKeyboard = () => {
+function createKeyboard() {
   const keyboard = document.createElement("div");
   keyboard.classList.add("keyboard");
   keyboard.id = "keyboard";
@@ -86,7 +95,7 @@ const createKeyboard = () => {
 
   keyboard.innerHTML = keyboardHTML;
   return keyboard;
-};
+}
 
 // generate random word
 function generateWord() {
@@ -94,8 +103,6 @@ function generateWord() {
   const randomWord = WORDS[randomNumber];
   return randomWord;
 }
-
-
 
 // generate quest
 function generateQuest() {
@@ -123,7 +130,14 @@ function generatePlaceHolders() {
 // check letter
 
 const checkLetter = (letter) => {
-  console.log('winCount',winCount,'triesLeft',triesLeft, 'length',word.length);
+  console.log(
+    "winCount",
+    winCount,
+    "triesLeft",
+    triesLeft,
+    "length",
+    word.length
+  );
   const wordRandom = word;
   if (wordRandom.includes(letter.toLowerCase())) {
     const wordArray = Array.from(wordRandom);
@@ -153,7 +167,7 @@ const checkLetter = (letter) => {
 function stopGame(status) {
   flag = true;
   if (flag) {
-    document.removeEventListener("keyup",pressKey);
+    document.removeEventListener("keyup", pressKey);
   }
   document.getElementById("placeholder").remove();
   document.getElementById("tries").remove();
