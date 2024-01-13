@@ -68,3 +68,8 @@ body {
   width: 320px;
   height: 320px;
 }
+
+.placeholder{
+  display: flex;
+  gap: 20px;
+}
