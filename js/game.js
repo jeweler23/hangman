@@ -9,7 +9,7 @@ const btnStart = document.createElement("button");
 body.appendChild(gameSection);
 gameSection.appendChild(logoH1);
 gameSection.appendChild(gameDiv);
-gameDiv.appendChild(btnStart)
+gameDiv.appendChild(btnStart);
 
 gameSection.id = "app";
 gameDiv.id = "game";
@@ -21,8 +21,8 @@ gameDiv.classList.add("app__block-btn");
 logoH1.classList.add("app__logo");
 btnStart.classList.add("app__btn-start");
 
-logoH1.innerText = '[ HANGMAN GAME ]';
-btnStart.innerHTML = 'Start game'
+logoH1.innerText = "[ HANGMAN GAME ]";
+btnStart.innerHTML = "Start game";
 
 let word = generateWord();
 let keyboardDiv = createKeyboard();
@@ -190,6 +190,9 @@ function stopGame(status) {
   document.getElementById("placeholder").remove();
   document.getElementById("tries").remove();
   document.getElementById("keyboard").remove();
+  document.getElementById("logo").remove();
+  document.querySelector(".quest-par").remove();
+
   flag = true;
   // winCount = 0
   // triesLeft = 0
@@ -221,7 +224,7 @@ function playAgain() {
   // btnStart.style.display = "block";
   logoH1.classList.remove("logo-sm");
   word = generateWord();
-  startGame()
+  startGame();
   // Вешаем на кнопку функцию, которая запускает игру – startGame
   // btnStart.addEventListener("click", startGame);
 }
