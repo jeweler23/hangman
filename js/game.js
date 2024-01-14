@@ -32,6 +32,10 @@ let flag;
 
 export function startGame(e) {
   keyboardDiv = createKeyboard();
+  body.appendChild(gameSection);
+  gameSection.appendChild(logoH1);
+  gameSection.appendChild(gameDiv);
+  gameDiv.appendChild(btnStart);
 
   flag = false;
   btnStart.style.display = "none";
@@ -193,7 +197,7 @@ function stopGame(status) {
   document.getElementById("logo").remove();
   document.querySelector(".quest-par").remove();
 
-  flag = true;
+  // flag = true;
   // winCount = 0
   // triesLeft = 0
   if (status == "win") {
