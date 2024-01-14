@@ -42,8 +42,6 @@ export function startGame(e) {
   triesLeft = 6;
   winCount = 0;
 
-  // console.log(winCount,word,word.length);
-
   logoH1.classList.add("logo-sm");
 
   const image = createImg();
@@ -58,7 +56,6 @@ export function startGame(e) {
   const secretWord = word;
   console.log(secretWord);
 
-  // const keyboardDiv = createKeyboard();
   keyboardDiv.addEventListener("click", (event) => {
     if (event.target.tagName.toLowerCase() === "button") {
       event.target.disabled = true;
@@ -77,7 +74,6 @@ export function startGame(e) {
 }
 
 // keyboard
-
 function pressKey(e) {
   let key = e.key;
 
